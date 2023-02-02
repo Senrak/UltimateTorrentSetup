@@ -1,0 +1,24 @@
+version: '3.3'
+services:
+    transmission-openvpn:
+        cap_add:
+            - NET_ADMIN
+        volumes:
+            - '/home/{user}/Downloads/:/torrents'
+            - '/home/{user}/Transmission/:/config'
+            - '/home/{user}/Transmission/{vpn_provider}/:/{vpn_provider_config}
+        environment:
+            - OPENVPN_PROVIDER=
+            - OPENVPN_USERNAME=
+            - OPENVPN_PASSWORD=
+            - LOCAL_NETWORK=
+        restart: unless-stopped
+        logging:
+            driver: json-file
+            options:
+                max-size: 10m
+        ports:
+            - '9091:9091'
+        image: haugene/transmission-openvpn
+        sysctls:
+            - "net.ipv6.conf.all.disable_ipv6=0"
