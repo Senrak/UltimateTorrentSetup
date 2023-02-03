@@ -1,0 +1,13 @@
+version: '3.5'
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    network_mode: 'host'
+    volumes:
+      - /home/{user}/Jellyfin:/config
+      - /home/{user}/Jellyfin:/cache
+      - /media/{user}/exJellyDrive1:/media
+      - /media/{user}/exJellyDrive2:/media2
+      - /home/{user}/Jellyfin:/media1
+    restart: 'unless-stopped'
